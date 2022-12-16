@@ -48,20 +48,38 @@ module "kubernetes-cluster" {
   machine-type = var.machine-type
   service-account = module.service-account.service-account
   secret = module.secret-manager.secret
+  network = module.vpc.network.id
+  subnet = module.subnet.subnets["public"].id
 }
-module "kubernetes-namespace" {
-  source = "./modules/kubernetes-namespace"
+module "kubernetes-ns" {
+  source = "./modules/kubernetes-ns"
   name = var.name
   depends_on = [module.kubernetes-cluster]
 }
-module "kubernetes-storage-class" {
-  source = "./modules/kubernetes-storage-class"
-  apiversion = "storage.k8s.io/v1"
-  kind = "StorageClass"
-  name = "local-storage"
-  provisioner = "kubernetes.io/no-provisioner"
-  bindingmode = "WaitForFirstConsumer"
-  allowvolumeexpans = true
-  reclaimPolicy = "Delete"
-  depends_on = [module.kubernetes-cluster]
+module "kubernetes-storageClass" {
+  source = "./modules/kubernetes-storageClass"
+  depends_on = [module.kubernetes-ns]
+}
+module "kubernetes-pv" {
+  source = "./modules/kubernetes-pv"
+  depends_on = [module.kubernetes-ns]
+}
+module "kubernetes-configmap" {
+  source = "./modules/kubernetes-configmap"
+  name = var.name
+  secret = module.secret-manager.secret
+  data-path = "./datas/redis-config"
+  depends_on = [module.kubernetes-ns]
+}
+module "kubernetes-statefulset" {
+  source = "./modules/kubernetes-statefulset"
+  name = var.name
+  data = "./datas/stateful-set"
+  depends_on = [module.kubernetes-ns]
+}
+module "kubernetes-service" {
+  source = "./modules/kubernetes-svc"
+  name = var.name
+  depends_on = [module.kubernetes-ns, module.kubernetes-statefulset]
+
 }

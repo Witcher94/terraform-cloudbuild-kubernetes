@@ -10,7 +10,7 @@ locals {
 variable "name" {
   type        = string
   description = "Name for all of the services"
-  default     = "kubernetes"
+  default     = "redis"
 }
 variable "description" {
   type        = string

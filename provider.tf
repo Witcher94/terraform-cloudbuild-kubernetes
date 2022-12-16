@@ -22,4 +22,5 @@ provider "kubernetes" {
   token                  = data.google_client_config.default.access_token
 }
 
-data "google_client_config" "default" {}
+data "google_client_config" "default" {
+}
