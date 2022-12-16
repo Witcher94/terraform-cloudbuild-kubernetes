@@ -62,24 +62,24 @@ module "kubernetes-storageClass" {
 }
 module "kubernetes-pv" {
   source = "./modules/kubernetes-pv"
-  depends_on = [module.kubernetes-ns]
+  depends_on = [module.kubernetes-storageClass]
 }
 module "kubernetes-configmap" {
   source = "./modules/kubernetes-configmap"
   name = var.name
   secret = module.secret-manager.secret
-  data-path = "./datas/redis-config"
-  depends_on = [module.kubernetes-ns]
+  data-path = "./datas/config"
+  depends_on = [module.kubernetes-pv]
 }
 module "kubernetes-statefulset" {
   source = "./modules/kubernetes-statefulset"
   name = var.name
-  data = "./datas/stateful-set"
-  depends_on = [module.kubernetes-ns]
+  data = "./datas/statefulset"
+  depends_on = [module.kubernetes-configmap]
 }
 module "kubernetes-service" {
   source = "./modules/kubernetes-svc"
   name = var.name
-  depends_on = [module.kubernetes-ns, module.kubernetes-statefulset]
+  depends_on = [module.kubernetes-statefulset]
 
 }

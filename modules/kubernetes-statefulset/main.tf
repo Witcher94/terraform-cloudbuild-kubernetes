@@ -42,6 +42,7 @@ resource "kubernetes_stateful_set" "redis" {
         container {
           name  = var.name
           image = "redis:6.2.3-alpine"
+          command = ["redis-server"]
           args  = ["/etc/redis/redis.conf"]
           port {
             container_port = 6379

@@ -4,7 +4,7 @@ resource "kubernetes_persistent_volume" "first" {
   }
   spec {
     storage_class_name = "local-storage"
-    capacity = {
+    capacity           = {
       storage = "1Gi"
     }
     access_modes = ["ReadWriteOnce"]
@@ -13,13 +13,14 @@ resource "kubernetes_persistent_volume" "first" {
         path = "/storage/data1"
       }
       flex_volume {
-        driver = "pd.csi.storage.gke.io"
-        fs_type = "ext4"
+        driver    = "pd.csi.storage.gke.io"
+        fs_type   = "ext4"
         read_only = false
       }
     }
   }
 }
+
 resource "kubernetes_persistent_volume" "sec" {
   metadata {
     name = "local-pv2"
