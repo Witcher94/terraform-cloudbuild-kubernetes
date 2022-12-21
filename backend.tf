@@ -1,5 +1,5 @@
-#terraform {
-#  backend "gcs" {
-#    bucket = "tf-state-wordpress-edu"
-#  }
-#}
+terraform {
+  backend "gcs" {
+    prefix  = "terraform/state"
+  }
+}

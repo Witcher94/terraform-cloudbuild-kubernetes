@@ -19,14 +19,14 @@ module "firewall" {
   network = module.vpc.network
   rules   = var.rules
 }
-module "service-account" {
-  source     = "./modules/service-account"
-  project    = local.project
-  account_id = var.account_id
-  name       = var.name
-  members    = var.members
-  roles      = var.roles
-}
+#module "service-account" {
+#  source     = "./modules/service-account"
+#  project    = local.project
+#  account_id = var.account_id
+#  name       = var.name
+#  members    = var.members
+#  roles      = var.roles
+#}
 module "secret-manager" {
   source      = "./modules/secret-manager"
   length      = var.length
@@ -46,40 +46,40 @@ module "kubernetes-cluster" {
   node-count = var.node-count
   preemptible = var.preemptible
   machine-type = var.machine-type
-  service-account = module.service-account.service-account
+#  service-account = module.service-account.service-account
   secret = module.secret-manager.secret
   network = module.vpc.network.id
   subnet = module.subnet.subnets["public"].id
 }
-module "kubernetes-ns" {
-  source = "./modules/kubernetes-ns"
-  name = var.name
-  depends_on = [module.kubernetes-cluster]
-}
-module "kubernetes-storageClass" {
-  source = "./modules/kubernetes-storageClass"
-  depends_on = [module.kubernetes-ns]
-}
-module "kubernetes-pv" {
-  source = "./modules/kubernetes-pv"
-  depends_on = [module.kubernetes-storageClass]
-}
-module "kubernetes-configmap" {
-  source = "./modules/kubernetes-configmap"
-  name = var.name
-  secret = module.secret-manager.secret
-  data-path = "./datas/config"
-  depends_on = [module.kubernetes-pv]
-}
-module "kubernetes-statefulset" {
-  source = "./modules/kubernetes-statefulset"
-  name = var.name
-  data = "./datas/statefulset"
-  depends_on = [module.kubernetes-configmap]
-}
-module "kubernetes-service" {
-  source = "./modules/kubernetes-svc"
-  name = var.name
-  depends_on = [module.kubernetes-statefulset]
-
-}
+//
+#module "kubernetes-ns" {
+#  source = "./modules/kubernetes-ns"
+#  name = var.name
+#  depends_on = [module.kubernetes-cluster]
+#}
+#module "kubernetes-storageClass" {
+#  source = "./modules/kubernetes-storageClass"
+#  depends_on = [module.kubernetes-ns]
+#}
+#module "kubernetes-pv" {
+#  source = "./modules/kubernetes-pv"
+#  depends_on = [module.kubernetes-storageClass]
+#}
+#module "kubernetes-configmap" {
+#  source = "./modules/kubernetes-configmap"
+#  name = var.name
+#  secret = module.secret-manager.secret
+#  data-path = "./datas/config"
+#  depends_on = [module.kubernetes-pv]
+#}
+#module "kubernetes-statefulset" {
+#  source = "./modules/kubernetes-statefulset"
+#  name = var.name
+#  data = "./datas/statefulset"
+#  depends_on = [module.kubernetes-configmap]
+#}
+#module "kubernetes-service" {
+#  source = "./modules/kubernetes-svc"
+#  name = var.name
+#  depends_on = [module.kubernetes-statefulset]
+#}

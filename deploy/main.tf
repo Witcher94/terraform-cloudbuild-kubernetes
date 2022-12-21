@@ -19,14 +19,14 @@ module "firewall" {
   network = module.vpc.network
   rules   = var.rules
 }
-module "service-account" {
-  source     = "./modules/service-account"
-  project    = local.project
-  account_id = var.account_id
-  name       = var.name
-  members    = var.members
-  roles      = var.roles
-}
+#module "service-account" {
+#  source     = "./modules/service-account"
+#  project    = local.project
+#  account_id = var.account_id
+#  name       = var.name
+#  members    = var.members
+#  roles      = var.roles
+#}
 module "secret-manager" {
   source      = "./modules/secret-manager"
   length      = var.length
@@ -46,7 +46,6 @@ module "kubernetes-cluster" {
   node-count = var.node-count
   preemptible = var.preemptible
   machine-type = var.machine-type
-  service-account = module.service-account.service-account
   secret = module.secret-manager.secret
   network = module.vpc.network.id
   subnet = module.subnet.subnets["public"].id

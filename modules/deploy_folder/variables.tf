@@ -1,0 +1,3 @@
+variable "folder" {
+  type = string
+}   

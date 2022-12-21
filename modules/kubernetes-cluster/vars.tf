@@ -19,9 +19,9 @@ variable "preemptible" {
 variable "machine-type" {
   type = string
 }
-variable "service-account" {
-  type = string
-}
+#variable "service-account" {
+#  type = string
+#}
 variable "secret" {
   type = string
 }

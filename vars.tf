@@ -184,6 +184,4 @@ variable "machine-type" {
   description = ""
   default = "e2-medium"
 }
-#module.kubernetes-cluster.google_container_cluster.cluster
-#module.kubernetes-cluster.google_container_node_pool.cluster_nodes
-#module.kubernetes-pv.kubernetes_persistent_volume.first
+
