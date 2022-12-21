@@ -1,8 +1,8 @@
 locals {
-  username = "pfaka"
-  project  = "${local.username}-education-25433"
-  region   = "europe-west3"
-  zone     = "${local.region}-c"
+  username  = "pfaka"
+  project   = "${local.username}-education-25433"
+  region    = "europe-west3"
+  zone      = "${local.region}-c"
   all-zones = ["${local.region}-a", "${local.region}-b", "${local.region}-c"]
 }
 #Input Variables for VPC module
@@ -84,7 +84,7 @@ variable "rules" {
       ]
       deny = []
     },
-   rule2 = {
+    rule2 = {
       name                    = "allow-iap"
       description             = null
       direction               = "INGRESS"
@@ -101,7 +101,7 @@ variable "rules" {
         }
       ]
       deny = []
-   }
+    }
   }
   description = "Coma separated map, to add new rule copy an example above"
 }
@@ -114,8 +114,8 @@ variable "account_id" {
 variable "roles" {
   type        = set(string)
   description = "defined roles"
-  default     = ["roles/iap.tunnelResourceAccessor", "roles/compute.instanceAdmin.v1", "roles/iam.serviceAccountUser",
-    "roles/storage.admin"]
+  default = ["roles/iap.tunnelResourceAccessor", "roles/compute.instanceAdmin.v1", "roles/iam.serviceAccountUser",
+  "roles/storage.admin"]
 }
 variable "members" {
   type        = list(string)
@@ -160,28 +160,28 @@ variable "labels" {
 }
 # Kubernetes module variables
 variable "remove-default-node-pool" {
-  type = bool
+  type        = bool
   description = ""
-  default = true
+  default     = true
 }
 variable "initial-node-count" {
-  type = number
+  type        = number
   description = ""
-  default = 1
+  default     = 1
 }
 variable "node-count" {
-  type = number
+  type        = number
   description = ""
-  default = 1
+  default     = 1
 }
 variable "preemptible" {
-  type = bool
+  type        = bool
   description = ""
-  default = false
+  default     = false
 }
 variable "machine-type" {
-  type = string
+  type        = string
   description = ""
-  default = "e2-medium"
+  default     = "e2-medium"
 }
 

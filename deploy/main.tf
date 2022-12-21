@@ -19,14 +19,6 @@ module "firewall" {
   network = module.vpc.network
   rules   = var.rules
 }
-#module "service-account" {
-#  source     = "./modules/service-account"
-#  project    = local.project
-#  account_id = var.account_id
-#  name       = var.name
-#  members    = var.members
-#  roles      = var.roles
-#}
 module "secret-manager" {
   source      = "./modules/secret-manager"
   length      = var.length
@@ -38,17 +30,17 @@ module "secret-manager" {
   labels      = var.labels
 }
 module "kubernetes-cluster" {
-  source = "./modules/kubernetes-cluster"
-  name = var.name
-  region = local.region
+  source                   = "./modules/kubernetes-cluster"
+  name                     = var.name
+  region                   = local.region
   remove-default-node-pool = var.remove-default-node-pool
-  initial-node-count = var.initial-node-count
-  node-count = var.node-count
-  preemptible = var.preemptible
-  machine-type = var.machine-type
-  secret = module.secret-manager.secret
-  network = module.vpc.network.id
-  subnet = module.subnet.subnets["public"].id
+  initial-node-count       = var.initial-node-count
+  node-count               = var.node-count
+  preemptible              = var.preemptible
+  machine-type             = var.machine-type
+  secret                   = module.secret-manager.secret
+  network                  = module.vpc.network.id
+  subnet                   = module.subnet.subnets["public"].id
 }
 module "deploy_folder" {
   source     = "./modules/deploy_folder"
