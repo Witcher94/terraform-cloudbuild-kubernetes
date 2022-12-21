@@ -8,6 +8,12 @@ resource "google_container_cluster" "cluster" {
   # node pool and immediately delete it.
   remove_default_node_pool = var.remove-default-node-pool
   initial_node_count       = var.initial-node-count
+  monitoring_config {
+    enable_components = ["SYSTEM_COMPONENTS", "APISERVER", "CONTROLLER_MANAGER", "SCHEDULER"]
+  }
+  logging_config {
+    enable_components = ["SYSTEM_COMPONENTS", "APISERVER", "CONTROLLER_MANAGER", "SCHEDULER", "WORKLOADS"]
+  }
 }
 
 resource "google_container_node_pool" "cluster_nodes" {
