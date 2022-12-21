@@ -55,34 +55,3 @@ module "deploy_folder" {
   folder     = var.name
   depends_on = [module.kubernetes-cluster]
 }
-#module "kubernetes-ns" {
-#  source = "./modules/kubernetes-ns"
-#  name = var.name
-#  depends_on = [module.kubernetes-cluster]
-#}
-#module "kubernetes-storageClass" {
-#  source = "./modules/kubernetes-storageClass"
-#  depends_on = [module.kubernetes-ns]
-#}
-#module "kubernetes-pv" {
-#  source = "./modules/kubernetes-pv"
-#  depends_on = [module.kubernetes-storageClass]
-#}
-#module "kubernetes-configmap" {
-#  source = "./modules/kubernetes-configmap"
-#  name = var.name
-#  secret = module.secret-manager.secret
-#  data-path = "./datas/config"
-#  depends_on = [module.kubernetes-pv]
-#}
-#module "kubernetes-statefulset" {
-#  source = "./modules/kubernetes-statefulset"
-#  name = var.name
-#  data = "./datas/statefulset"
-#  depends_on = [module.kubernetes-configmap]
-#}
-#module "kubernetes-service" {
-#  source = "./modules/kubernetes-svc"
-#  name = var.name
-#  depends_on = [module.kubernetes-statefulset]
-#}
