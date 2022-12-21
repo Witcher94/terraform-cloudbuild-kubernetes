@@ -31,7 +31,7 @@ steps:
   env:
     - "TF_VAR_project=${PROJECT_ID}"
 - name: 'gcr.io/${PROJECT_ID}/terraform'
-  args: ['apply', '-auto-approve']
+  args: ['destroy', '-auto-approve']
   env:
     - "TF_VAR_project=${PROJECT_ID}"
 
