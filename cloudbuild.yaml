@@ -5,7 +5,7 @@ steps:
    '-c',
    'docker pull gcr.io/$PROJECT_ID/redis:latest || exit 0'
   ]
-- name: 'gcr.io/$PROJECT_ID/redis:latest'
+- name: 'gcr.io/cloud-builders/docker'
   args: [
     'build',
     '-t',
@@ -14,7 +14,6 @@ steps:
     'gcr.io/${PROJECT_ID}/redis:latest',
     '.'
   ]
-
 - name: 'gcr.io/${PROJECT_ID}/terraform'
   args: ['init',
       "-backend-config=bucket.conf"

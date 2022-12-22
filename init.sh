@@ -125,5 +125,6 @@ gsutil versioning set on gs://${TERRAFORM_BUCKET}
 echo "Terraform image build start"
 (cd cloudbuild-tf-container && gcloud builds submit . --config=cloudbuild.yaml)
 echo "Terraform image build ends"
+(cd redis-container && gcloud builds submit . --config=cloudbuild.yaml)
 (gcloud builds submit . --config=cloudbuild.yaml)
 
