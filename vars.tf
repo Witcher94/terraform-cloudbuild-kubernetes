@@ -171,7 +171,7 @@ variable "initial-node-count" {
 variable "node-count" {
   type        = number
   description = "The number of nodes per instance group."
-  default     = 3
+  default     = 1
 }
 variable "preemptible" {
   type        = bool
