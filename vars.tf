@@ -5,13 +5,12 @@ locals {
   zone      = "${local.region}-c"
   all-zones = ["${local.region}-a", "${local.region}-b", "${local.region}-c"]
 }
-#Input Variables for VPC module
-#Input Variables for VPC module
 variable "name" {
   type        = string
   description = "Name for all of the services"
   default     = "redis"
 }
+#Input Variables for VPC module
 variable "description" {
   type        = string
   description = "An optional description of this resource. The resource must be recreated to modify this field. Related to VPC module"
@@ -50,7 +49,7 @@ variable "ip_ranges_to_nat" {
 #Input Variables for subnet module
 variable "subnets" {
   default = {
-    public = {
+    subnet-1 = {
       ip                           = "10.20.30.0/24"
       region                       = "europe-west3"
       name                         = "public"
@@ -66,7 +65,7 @@ variable "subnets" {
 #Input Variables for firewall module
 variable "rules" {
   default = {
-    rule = {
+    firewall-rule-1 = {
       name                    = "allow-http"
       description             = null
       direction               = "INGRESS"
@@ -84,7 +83,7 @@ variable "rules" {
       ]
       deny = []
     },
-    rule2 = {
+    firewall-rule-2 = {
       name                    = "allow-iap"
       description             = null
       direction               = "INGRESS"
@@ -161,27 +160,27 @@ variable "labels" {
 # Kubernetes module variables
 variable "remove-default-node-pool" {
   type        = bool
-  description = ""
+  description = "If true, deletes the default node pool upon cluster creation.google_container_node_pool resources with no value,default initial-node-count = 1"
   default     = true
 }
 variable "initial-node-count" {
   type        = number
-  description = ""
-  default     = 1
+  description = "The number of nodes to create in this cluster's default node pool."
+  default     = 0
 }
 variable "node-count" {
   type        = number
-  description = ""
-  default     = 1
+  description = "The number of nodes per instance group."
+  default     = 3
 }
 variable "preemptible" {
   type        = bool
-  description = ""
+  description = "A boolean that represents whether or not the underlying node VMs are preemptible."
   default     = false
 }
 variable "machine-type" {
   type        = string
-  description = ""
-  default     = "e2-medium"
+  description = "The name of a Google Compute Engine machine type. Defaults to e2-medium."
+  default     = "e2-micro"
 }
 
