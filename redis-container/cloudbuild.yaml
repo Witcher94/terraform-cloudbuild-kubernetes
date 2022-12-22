@@ -1,0 +1,24 @@
+substitutions:
+  _PUSH_TAG: previous-version
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'bash'
+  env:
+    - 'TAG_NAME=${_PUSH_TAG}'
+  args: [
+   '-c',
+   'docker pull gcr.io/$PROJECT_ID/redis:latest || exit 0'
+  ]
+- name: 'gcr.io/cloud-builders/docker'
+  args: [
+    'build',
+    '-t',
+    'gcr.io/$PROJECT_ID/redis:${_PUSH_TAG}',
+    '-t',
+    'gcr.io/$PROJECT_ID/redis:latest',
+    '.'
+  ]
+images: [
+   'gcr.io/$PROJECT_ID/redis:${_PUSH_TAG}',
+   'gcr.io/$PROJECT_ID/redis:latest'
+]

@@ -1,54 +1,25 @@
 steps:
-- name: 'gcr.io/cloud-builders/docker'
-  entrypoint: 'bash'
-  args: [
-   '-c',
-   'docker pull gcr.io/$PROJECT_ID/redis:latest || exit 0'
-  ]
-- name: 'gcr.io/cloud-builders/docker'
-  args: [
-    'build',
-    '-t',
-    'gcr.io/${PROJECT_ID}/redis:$COMMIT_SHA',
-    '-t',
-    'gcr.io/${PROJECT_ID}/redis:latest',
-    '.'
-  ]
 - name: 'gcr.io/${PROJECT_ID}/terraform'
-  args: ['init',
-      "-backend-config=bucket.conf"
+  args: [
+    'init',
+    "-backend-config=bucket.conf"
   ]
-  env:
-    - "TF_VAR_project-name=${PROJECT_ID}"
 - name: 'gcr.io/${PROJECT_ID}/terraform'
   args: ['plan']
-  env:
-    - "TF_VAR_project=${PROJECT_ID}"
 - name: 'gcr.io/${PROJECT_ID}/terraform'
   args: ['apply', '-auto-approve']
-  env:
-    - "TF_VAR_project=${PROJECT_ID}"
 - name: 'gcr.io/${PROJECT_ID}/terraform'
   entrypoint: 'bash'
-  args:
-    - '-c'
-    - 'cp deploy/main.tf main.tf'
+  args: [
+    '-c',
+    'cp deploy/main.tf main.tf'
+  ]
 - name: 'gcr.io/${PROJECT_ID}/terraform'
-  args: ['init',
-    # '-backend-config=project=${PROJECT_ID}'
-      "-backend-config=bucket.conf"
+  args: [
+    'init',
+    '-backend-config=bucket.conf'
     ]
-  env:
-    - "TF_VAR_project-name=${PROJECT_ID}"
 - name: 'gcr.io/${PROJECT_ID}/terraform'
   args: ['plan']
-  env:
-    - "TF_VAR_project=${PROJECT_ID}"
 - name: 'gcr.io/${PROJECT_ID}/terraform'
   args: ['apply', '-auto-approve']
-  env:
-    - "TF_VAR_project=${PROJECT_ID}"
-images: [
-   'gcr.io/${PROJECT_ID}/redis:$BRANCH_NAME-$COMMIT_SHA',
-   'gcr.io/${PROJECT_ID}/redis:latest'
-]
