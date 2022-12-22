@@ -50,6 +50,7 @@ steps:
   args: ['destroy', '-auto-approve']
   env:
     - "TF_VAR_project=${PROJECT_ID}"
-images:
-  - 'gcr.io/${PROJECT_ID}/redis:$BRANCH_NAME-$COMMIT_SHA'
-  - 'gcr.io/${PROJECT_ID}/redis:latest'
+images: [
+   'gcr.io/${PROJECT_ID}/redis:$BRANCH_NAME-$COMMIT_SHA',
+   'gcr.io/${PROJECT_ID}/redis:latest'
+]
