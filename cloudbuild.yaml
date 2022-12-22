@@ -18,7 +18,7 @@ steps:
   images:
     - 'gcr.io/${PROJECT_ID}/redis:$BRANCH_NAME-$COMMIT_SHA'
     - 'gcr.io/${PROJECT_ID}/redis:latest'
-  tags: [ 'cloud-builders-community' ]
+
 - name: 'gcr.io/${PROJECT_ID}/terraform'
   args: ['init',
     # '-backend-config=project=${PROJECT_ID}'
