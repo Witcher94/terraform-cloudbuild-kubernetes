@@ -16,7 +16,7 @@ spec:
     spec:
       initContainers:
       - name: init-redis
-        image: gcr.io/pfaka-education-25433/redis:latest
+        image: redis:latest
         command:
         - bash
         - "-c"
@@ -38,7 +38,7 @@ spec:
           mountPath: /mnt/
       containers:
       - name: redis
-        image: gcr.io/pfaka-education-25433/redis:latest
+        image: redis:latest
         ports:
         - containerPort: 6379
           name: redis-ss
