@@ -5,7 +5,7 @@ steps:
    '-c',
    'docker pull gcr.io/$PROJECT_ID/redis:latest || exit 0'
   ]
-- name: 'gcr.io/cloud-builders/docker'
+- name: 'gcr.io/$PROJECT_ID/redis:latest'
   args: [
     'build',
     '-t',
