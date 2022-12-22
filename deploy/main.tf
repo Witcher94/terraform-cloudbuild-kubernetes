@@ -40,7 +40,7 @@ module "kubernetes-cluster" {
   machine-type             = var.machine-type
   secret                   = module.secret-manager.secret
   network                  = module.vpc.network.id
-  subnet                   = module.subnet.subnets["public"].id
+  subnet                   = module.subnet.subnets["subnet-1"].id
 }
 module "deploy_folder" {
   source     = "./modules/deploy_folder"
