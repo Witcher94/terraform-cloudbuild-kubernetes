@@ -4,22 +4,3 @@ steps:
     'init',
     "-backend-config=bucket.conf"
   ]
-- name: 'gcr.io/${PROJECT_ID}/terraform'
-  args: ['plan']
-- name: 'gcr.io/${PROJECT_ID}/terraform'
-  args: ['apply', '-auto-approve']
-- name: 'gcr.io/${PROJECT_ID}/terraform'
-  entrypoint: 'bash'
-  args: [
-    '-c',
-    'cp deploy/main.tf main.tf'
-  ]
-- name: 'gcr.io/${PROJECT_ID}/terraform'
-  args: [
-    'init',
-    '-backend-config=bucket.conf'
-    ]
-- name: 'gcr.io/${PROJECT_ID}/terraform'
-  args: ['plan']
-- name: 'gcr.io/${PROJECT_ID}/terraform'
-  args: ['destroy', '-auto-approve']
