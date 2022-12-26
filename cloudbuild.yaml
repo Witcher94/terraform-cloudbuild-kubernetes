@@ -1,5 +1,6 @@
 steps:
 - name: 'gcr.io/${PROJECT_ID}/terraform'
   args: [
-    'init'
+    'init',
+    '-backend-config = bucket.conf'
   ]
