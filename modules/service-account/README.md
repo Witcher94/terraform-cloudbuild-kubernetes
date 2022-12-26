@@ -27,6 +27,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_account_id"></a> [account\_id](#input\_account\_id) | n/a | `string` | n/a | yes |
 | <a name="input_members"></a> [members](#input\_members) | n/a | `list(string)` | n/a | yes |
+| <a name="input_name"></a> [name](#input\_name) | n/a | `string` | n/a | yes |
 | <a name="input_project"></a> [project](#input\_project) | n/a | `string` | n/a | yes |
 | <a name="input_roles"></a> [roles](#input\_roles) | roles | `set(string)` | n/a | yes |
 
